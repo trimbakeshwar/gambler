@@ -38,9 +38,24 @@ do
 
 recordWon[$i]=$amountWon
 recordLoss[$i]=$amountLoss
+if [ $max -lt ${recordWon[$i]} ]
+then
+   max=${recordWon[$i]}
+   LukestDay=$i
+fi
+if [ $min -lt ${recordLoss[$i]} ]
+then
+   min=${recordLoss[$i]}
+   badDay=$i
+fi
 done
 }
 playing 
 
 echo "won ${!recordWon[@]}	${recordWon[@]}"
 echo "loss ${!recordLoss[@]} ${recordLoss[@]}"
+echo "max amount win $max"
+echo "max amount win on the day $LukestDay"
+echo "max amount loss $min"
+echo "max amount loss on the day $badDay"
+
