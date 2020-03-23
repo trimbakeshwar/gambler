@@ -1,27 +1,37 @@
 #!/bin/bash -x
 echo "welcome to gambler"
-
+declare -A record
 STAKE=100
-BET=1
+BET=10
 PERCENT=50
 WIN=150
 LOSS=50
-read -p "enter cash" cash
+day=2
+cash=$STAKE
 function bet(){
 result=$((RANDOM%2))
 if [ $result -eq 1 ]
 then
-	$((cash+=$BET))
-	echo $cash
+	((cash+=$BET))
+	((amountWon+=$BET))
+	echo "$amountWon"
 else
-	$((cash-=$BET))
-	echo $cash
+	((cash-=$BET))
+	((amountLoss+=$BET))
+	echo "$amountLoss"
 fi
 }
-bet
 function playing(){
-while [[ $cash -gt $LOSS && $cash -lt $WIN ]]
+for  (( i=1; i<=20; i++ ))
 do
-	bet
+	cash=$STAKE
+	while [[ $cash -ne $LOSS && $cash -ne $WIN ]]
+	do
+		bet
+	done
 done
+
 }
+playing 
+echo "amount won : $amountWon"
+echo "amount lost : $amountLoss"
